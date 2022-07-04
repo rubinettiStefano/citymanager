@@ -2,7 +2,7 @@ package com.generation.citymanager.model.entities;
 
 public class Body
 {
-	String type;
+	String type,name;
 	int left,bottom, right,top;
 	Segment horizontal;
 	Segment vertical;
@@ -10,6 +10,18 @@ public class Body
 	public Body(String type, int left, int bottom, int right, int top)
 	{
 		this.type 	= type;
+		this.left 	= left;
+		this.bottom = bottom;
+		this.right	= right;
+		this.top 	= top;
+		horizontal  = new Segment(left,right);
+		vertical	= new Segment(bottom,top);
+	}
+	
+	public Body(String type,String name, int left, int bottom, int right, int top)
+	{
+		this.type 	= type;
+		this.name = name;
 		this.left 	= left;
 		this.bottom = bottom;
 		this.right	= right;
