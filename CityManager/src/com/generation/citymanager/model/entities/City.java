@@ -29,8 +29,8 @@ public class City
 		)
 			return false;
 		
-		for(Body b : bodies)
-			if(b.collides(newBody))
+		for(Body oldBody : bodies)
+			if(oldBody.collides(newBody))
 				return false;
 		
 		return bodies.add(newBody);
