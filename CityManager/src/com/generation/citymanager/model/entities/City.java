@@ -3,6 +3,16 @@ package com.generation.citymanager.model.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <br/> 
+ * <br/> 
+ * <br/> 
+ * <img src="https://c.tenor.com/_BiwWBWhYucAAAAd/what-huh.gif" />
+ * <button>Premimi</button>
+ * <input type="text"></input>
+ * @author rubin
+ *
+ */
 public class City extends Entity
 {
 	String name;

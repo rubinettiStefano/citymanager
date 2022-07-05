@@ -3,6 +3,8 @@ package com.generation.citymanager.model.entities;
 /**
  * Un Body è qualunque cosa definita GEOGRAFICAMENTE all'interno di una città. <br/>
  * Essendo una Entity eredità l'ID
+ * 
+ * 	
  * @author Stefano
  *
  */

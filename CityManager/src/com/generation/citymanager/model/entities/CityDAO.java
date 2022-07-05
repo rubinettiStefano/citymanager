@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class CityDAO
 {
 	String source;
-	List<City> cache = new ArrayList<City>();
+	List<City> cache = null;
 	
 	public CityDAO(String source)
 	{
