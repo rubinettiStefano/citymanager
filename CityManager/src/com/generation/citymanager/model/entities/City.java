@@ -3,14 +3,15 @@ package com.generation.citymanager.model.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class City
+public class City extends Entity
 {
 	String name;
 	int w,h;
 	List<Body> bodies = new ArrayList<Body>();
 	
-	public City(String  name, int w, int h)
+	public City(String ID, String  name, int w, int h)
 	{
+		this.ID = ID;
 		this.name = name;
 		this.w = w;
 		this.h = h;
@@ -33,6 +34,10 @@ public class City
 			if(oldBody.collides(newBody))
 				return false;
 		
-		return bodies.add(newBody);
+		
+		bodies.add(newBody);
+		newBody.cityID = this.ID;
+		newBody.city = this;
+		return true;
 	}
 }

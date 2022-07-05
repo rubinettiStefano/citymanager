@@ -1,4 +1,6 @@
-package com.generation.citymanager.model.entities;
+package com.generation.citymanager.model.entities.test;
+
+import com.generation.citymanager.model.entities.Body;
 
 public class TestBody
 {

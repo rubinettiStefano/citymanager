@@ -1,14 +1,23 @@
 package com.generation.citymanager.model.entities;
 
-public class Body
+/**
+ * Un Body è qualunque cosa definita GEOGRAFICAMENTE all'interno di una città. <br/>
+ * Essendo una Entity eredità l'ID
+ * @author Stefano
+ *
+ */
+public class Body extends Entity
 {
 	String type,name;
 	int left,bottom, right,top;
 	Segment horizontal;
 	Segment vertical;
+	String cityID;
+	City city;
 	
-	public Body(String type, int left, int bottom, int right, int top)
+	public Body(String ID, String type, int left, int bottom, int right, int top)
 	{
+		this.ID = ID;
 		this.type 	= type;
 		this.left 	= left;
 		this.bottom = bottom;
@@ -18,8 +27,9 @@ public class Body
 		vertical	= new Segment(bottom,top);
 	}
 	
-	public Body(String type,String name, int left, int bottom, int right, int top)
+	public Body(String ID,  String type,String name, int left, int bottom, int right, int top, String cityID)
 	{
+		this.ID = ID;
 		this.type 	= type;
 		this.name = name;
 		this.left 	= left;
@@ -28,6 +38,7 @@ public class Body
 		this.top 	= top;
 		horizontal  = new Segment(left,right);
 		vertical	= new Segment(bottom,top);
+		this.cityID = cityID;
 	}
 	
 	public String toString()

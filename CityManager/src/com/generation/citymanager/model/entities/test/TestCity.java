@@ -1,7 +1,10 @@
-package com.generation.citymanager.model.entities;
+package com.generation.citymanager.model.entities.test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import com.generation.citymanager.model.entities.Body;
+import com.generation.citymanager.model.entities.City;
 
 public class TestCity
 {
