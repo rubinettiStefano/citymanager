@@ -1,72 +1,50 @@
 package com.generation.citymanager.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import com.generation.citymanager.model.entities.City;
 
-
 /**
- * io caricherï¿½ delle cittï¿½ dall'hard disk
- * leggerï¿½ e scriverï¿½
- * @author ED
+ * Contratto che specifica i metodi che dovranno essere offerti da tutti i CityDAO
+ * @author FP80
  *
  */
-public class CityDAO 
+public interface CityDAO 
 {
-	//origine dei dati
-	String source;
-	
-	List<City> cache = null; //null = ancora non esiste la lista, null vuol dire che ancora non esite l'oggetto
-	//cache = memeoria temporanea, in cui io salvo i miei risultati per poterli riutilizzare
-	
-	
-	public CityDAO(String source)
-	{
-		this.source=source;
-		  
-	}
-	
-	public List<City> getCities() 
-	{
-		
-		if(cache!=null)
-			return cache; 
-		
-		List<City> res = new ArrayList<City>();
-		try 
-			{
-				File file = new File(source); // source = city.csv
-				Scanner reader = new Scanner(file);
-				
-				while(reader.hasNextLine()) //ï¿½ un booleano e mi dice se ho una riga
-				{
-					String row = reader.nextLine(); //stringa, legge una riga
-					String [] parts = row.split(",");
-					
-					City city = new City(parts[0], parts[1], Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
-					
-					res.add(city);
-					
-				}
-				reader.close();
-			} 
-		catch (FileNotFoundException e) 
-			{
-				e.printStackTrace();
-				//syso("non trovo il file" +source);
-			} 
-		
-		cache = res; //imposto la cache, la lista che ho prodotto viene messa in cache
-		return res;
 
-	}
+	/**
+	 * Elenco di TUTTE le città in archivio
+	 * @return
+	 */
+	List<City> getCities();
 	
+	/**
+	 * legge dall'archivio la città con l'ID passato.
+	 * se non la trova, restituisce null
+	 * @param ID
+	 * @return
+	 */
+	City getCity(String ID);
 	
+	/**
+	 * Voglio salvare city sul db
+	 * @param newCity
+	 * @return
+	 */
+	boolean saveCity(City city);
 	
+	/**
+	 * Voglio cancellare la città con questo ID
+	 * @param ID
+	 * @return
+	 */
+	boolean deleteCity(String ID);
 	
-
+	/**
+	 * tutte le città con namePart nel nome
+	 * @param namePart
+	 * @return
+	 */
+	List<City> getCities(String namePart);
+	
 }

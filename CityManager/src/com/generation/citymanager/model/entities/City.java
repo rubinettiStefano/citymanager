@@ -7,7 +7,8 @@ public class City extends Entity
  {
 	//PROPRIETA DI OGGETTO DELLA CLASSE CITY
 	public String name; // VARIABILE
-	int w,h;	// VARIABILI
+	public int w;	// VARIABILI
+	public int h;
 	public List<Body> bodies = new ArrayList<Body>(); // LISTA VUOTA
 	
 	public City(String ID, String name, int w, int h) // COSTRUTTORE 
