@@ -5,7 +5,7 @@ public class Review extends Entity
 	String title;
 	String text;
 	int score;
-	String bodyID;
+	public String bodyID;
 	Body body;
 	
 	public Review(String ID, String title, String text, int score, String bodyID) 

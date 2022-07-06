@@ -1,7 +1,14 @@
-package com.generation.citymanager.model.entities;
+package com.generation.citymanager.model.database;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.generation.citymanager.model.dao.BodyDAO;
+import com.generation.citymanager.model.dao.CitizenDAO;
+import com.generation.citymanager.model.dao.CityDAO;
+import com.generation.citymanager.model.entities.Body;
+import com.generation.citymanager.model.entities.Citizen;
+import com.generation.citymanager.model.entities.City;
 
 /**
  * Database servira a fare tutte le LETTURE e le SCRITTURE su DB
@@ -13,14 +20,12 @@ public class Database
 	CityDAO cityDAO;
 	BodyDAO bodyDAO;
 	CitizenDAO citizenDAO;
-	ReviewDAO reviewDAO;
 	
 	public Database(String cityFile, String bodyFile, String citizenFile, String reviewFile)
 	{
 		cityDAO = new CityDAO(cityFile);
 		bodyDAO = new BodyDAO(bodyFile);
 		citizenDAO = new CitizenDAO(citizenFile);
-		reviewDAO = new ReviewDAO(reviewFile);
 	}
 	
 	public List<City> getCities()
@@ -28,7 +33,6 @@ public class Database
 		List<City> cities = cityDAO.getCities();
 		List<Body> bodies = bodyDAO.getBodies();
 		List<Citizen> citizens = citizenDAO.getCitizens();
-		List<Review> reviews = new ArrayList<Review>();
 		
 		for(City city:cities)
 			for(Body body:bodies)
@@ -44,10 +48,10 @@ public class Database
 				body.addCitizen(citizen);
 		
 		
-		for(Body body: bodies)
-			for(Review review: reviews)
-			if(body.ID.equals(review.bodyID))
-				body.addReview(review);
+//		for(Body body: bodies)
+//			for(Review review: reviews)
+//			if(body.ID.equals(review.bodyID))
+//				body.addReview(review);
 		
 		return cities;		
 	}
@@ -75,5 +79,29 @@ public class Database
 		
 	}
 	
+	public List<Citizen> getCitizen(String namePart)
+	{
+		List<Citizen> res  = new ArrayList<Citizen>();
+		
+		for(City city : getCities())
+			for(Body b : city.bodies)
+				for(Citizen c : b.citizens)
+					if((c.name+"-"+c.surname).contains(namePart))
+						res.add(c);
+		return res;
+	}
 	
+//	public List<Review> getReviews(String word)
+//	{
+//		List<Review> res = new ArrayList<Review>();
+//		
+//		for(City city : getCities())
+//			for(Body body : city.bodies)
+//				for(Review review : body.reviews)
+//					if((review.title + " " + review.text).contains(word))
+//				//  if(review.title.contains(word) && review.text.contains(word))  uguale a sopra
+//						res.add(review);
+//		return res;
+//	}
+
 }

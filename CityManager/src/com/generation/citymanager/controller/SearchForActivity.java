@@ -1,6 +1,9 @@
-package com.generation.citymanager.model.entities;
+package com.generation.citymanager.controller;
 import java.util.List;
 import java.util.Scanner;
+
+import com.generation.citymanager.model.database.Database;
+import com.generation.citymanager.model.entities.Body;
 public class SearchForActivity 
 {
 
@@ -28,5 +31,7 @@ public class SearchForActivity
 		// select * from City inner join Body on City.ID=Body.CityId where name like %activity% and city.Name = name 
 		keyboard.close();
 	}
+	
+	
 
 }

@@ -1,4 +1,7 @@
-package com.generation.citymanager.model.entities;
+package com.generation.citymanager.controller;
+
+import com.generation.citymanager.model.database.Database;
+import com.generation.citymanager.model.entities.City;
 
 public class CityManager {
 

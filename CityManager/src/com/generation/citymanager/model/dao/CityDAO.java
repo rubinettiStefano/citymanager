@@ -1,4 +1,4 @@
-package com.generation.citymanager.model.entities;
+package com.generation.citymanager.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import com.generation.citymanager.model.entities.City;
+
 
 /**
- * io caricherò delle città dall'hard disk
- * leggerò e scriverò
+ * io caricherï¿½ delle cittï¿½ dall'hard disk
+ * leggerï¿½ e scriverï¿½
  * @author ED
  *
  */
@@ -40,7 +42,7 @@ public class CityDAO
 				File file = new File(source); // source = city.csv
 				Scanner reader = new Scanner(file);
 				
-				while(reader.hasNextLine()) //è un booleano e mi dice se ho una riga
+				while(reader.hasNextLine()) //ï¿½ un booleano e mi dice se ho una riga
 				{
 					String row = reader.nextLine(); //stringa, legge una riga
 					String [] parts = row.split(",");

@@ -6,9 +6,9 @@ import java.util.List;
 public class City extends Entity
  {
 	//PROPRIETA DI OGGETTO DELLA CLASSE CITY
-	String name; // VARIABILE
+	public String name; // VARIABILE
 	int w,h;	// VARIABILI
-	List<Body> bodies = new ArrayList<Body>(); // LISTA VUOTA
+	public List<Body> bodies = new ArrayList<Body>(); // LISTA VUOTA
 	
 	public City(String ID, String name, int w, int h) // COSTRUTTORE 
 	{
@@ -83,7 +83,13 @@ public class City extends Entity
 	}
 	
 	
-	
+	public int getImu()
+	{
+		return  bodies
+				.stream()
+				.filter(b -> b.type.equalsIgnoreCase("residential") && b.citizens.size()>10)
+				.map(b -> b.getArea() < 10 ?  b.getArea() : 10).reduce(0, Integer::sum);
+	}
 	
 	
 	

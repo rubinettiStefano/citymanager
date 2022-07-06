@@ -1,10 +1,12 @@
-package com.generation.citymanager.model.entities;
+package com.generation.citymanager.model.dao;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import com.generation.citymanager.model.entities.Body;
 
 /**
  * legge e scrive body da file

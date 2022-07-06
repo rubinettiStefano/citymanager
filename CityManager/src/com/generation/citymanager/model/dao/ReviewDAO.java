@@ -1,4 +1,4 @@
-package com.generation.citymanager.model.entities;
+package com.generation.citymanager.model.dao;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,25 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CitizenDAO
+import com.generation.citymanager.model.entities.Review;
+@Deprecated
+public class ReviewDAO 
 {
 	String source;
-	List<Citizen> cache = null;
+	List<Review> cache = null;
 
-	public CitizenDAO(String source) 
+	public ReviewDAO(String source) 
 	{
 		this.source=source;
 	}
 	
 	
-	public List<Citizen> getCitizens()
+	public List<Review> getReviews()
 	{
 		if(cache!=null)
 		{
 			return cache;
 		}
 		
-		List<Citizen> res = new ArrayList<Citizen>();
+		List<Review> res = new ArrayList<Review>();
 		try 
 		{
 			File file = new File(source);
@@ -33,12 +35,11 @@ public class CitizenDAO
 			while(reader.hasNextLine()) //hasNextLine() : booleano. Mi dice se HO una riga
 			{
 				//leggi una riga
-				String row = reader.nextLine();//String : legge una riga
-				//convertila in una città
-				String[] parts = row.split(",");
-				Citizen citizen = new Citizen(parts[0],parts[1],parts[2],parts[3]);
+				String row = reader.nextLine();
+				
+				Review review = new Review(row);
 						
-				res.add(citizen);
+				res.add(review);
 			}
 
 			reader.close();
@@ -46,11 +47,8 @@ public class CitizenDAO
 			System.out.println("non trovo il file " + source);
 		}
 		//IMPOSTO LA CACHE
-		cache = res; //la lista che ho prodotto viene messa in CACHE, dove la troverò la prossima volta
+		cache = res; //la lista che ho prodotto viene messa in CACHE, dove la troverï¿½ la prossima volta
 		return res;
 	}
-	
-		
-		
+
 }
-	

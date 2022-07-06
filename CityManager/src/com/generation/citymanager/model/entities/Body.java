@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Un body è qualunque cosa io possa aggiungere alla città
+ * Un body ï¿½ qualunque cosa io possa aggiungere alla cittï¿½
  * (parco, casa, centro commerciale...)
- * definito GEOGRAFICAMENTE. so sempre dovè. <br/>
+ * definito GEOGRAFICAMENTE. so sempre dovï¿½. <br/>
  * E' una Entity quindi eredita ID.
  * @author Lorenzo
  *
@@ -15,15 +15,15 @@ public class Body extends Entity
 {
 	// PROPRIETA DI OGGETTO CLASSE BODY
 	// VARCHAR(100)
-	String type; // Rresidential, commercial, park...
-	String name; //OPZIONALE
+	public String type; // Rresidential, commercial, park...
+	public String name; //OPZIONALE
 	int left, bottom, right, top;  						// DICHIARAZIONI VARIABILI
 	Segment horizontal;
 	Segment vertical;
 	//CHIAVE ESTERNA
-	String cityID;
+	public String cityID;
 	City city;
-	List<Citizen> citizens = new ArrayList<Citizen>();
+	public List<Citizen> citizens = new ArrayList<Citizen>();
 	List<Review> reviews = new ArrayList<Review>(); // LISTA VUOTA
 	
 	

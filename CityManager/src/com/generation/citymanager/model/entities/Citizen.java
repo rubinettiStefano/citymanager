@@ -4,10 +4,12 @@ public class Citizen extends Entity
 {
 	// ho anche ID, anche se non si vede
 	// campi miei
-	String name,surname;
+	public String name;
+
+	public String surname;
 	
 	// riferimenti all edificio in cui abito(chiave esterna e collegamento diretto)
-	String bodyID;
+	public String bodyID;
 	Body body;
 	
 	public Citizen(String ID, String name, String surname, String bodyID) 
