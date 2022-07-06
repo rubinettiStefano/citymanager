@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.generation.citymanager.model.dao.BodyDAO;
+import com.generation.citymanager.model.dao.BodyDAOCSV;
 import com.generation.citymanager.model.dao.CitizenDAO;
+import com.generation.citymanager.model.dao.CitizenDAOCSV;
 import com.generation.citymanager.model.dao.CityDAO;
 import com.generation.citymanager.model.dao.CityDAOCSV;
 import com.generation.citymanager.model.entities.Body;
@@ -25,8 +27,8 @@ public class Database
 	public Database(String cityFile, String bodyFile, String citizenFile, String reviewFile)
 	{
 		cityDAO = new CityDAOCSV(cityFile);
-		bodyDAO = new BodyDAO(bodyFile);
-		citizenDAO = new CitizenDAO(citizenFile);
+		bodyDAO = new BodyDAOCSV(bodyFile);
+		citizenDAO = new CitizenDAOCSV(citizenFile);
 	}
 	
 	public List<City> getCities()

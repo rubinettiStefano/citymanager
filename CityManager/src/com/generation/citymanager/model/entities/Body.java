@@ -17,7 +17,7 @@ public class Body extends Entity
 	// VARCHAR(100)
 	public String type; // Rresidential, commercial, park...
 	public String name; //OPZIONALE
-	int left, bottom, right, top;  						// DICHIARAZIONI VARIABILI
+	public int left, bottom, right, top;  						// DICHIARAZIONI VARIABILI
 	Segment horizontal;
 	Segment vertical;
 	//CHIAVE ESTERNA
@@ -62,8 +62,7 @@ public class Body extends Entity
 		vertical = new Segment(bottom, top);
 	}
 	
-	public Body(String iD, String type, String name, int left, int bottom, int right, int top, Segment horizontal,
-			Segment vertical, String cityID) 
+	public Body(String iD, String type, String name, int left, int bottom, int right, int top, String cityID) 
 	{
 		ID = iD;
 		this.type = type;

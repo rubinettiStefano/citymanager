@@ -10,15 +10,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Questa classe ci permette di creare una città tramite un file dell'hardDisk, e in futuro anche di modificare il file.
- * è fornita di un sistema di Try and Catch per gestire l' exeption qualora il file non fosse raggiungibile, e di un sistema di chache che permette di salvare il file in una memoria temporanea, velocizzando un'eventuale seconda lettura
+ * Questa classe ci permette di creare una cittï¿½ tramite un file dell'hardDisk, e in futuro anche di modificare il file.
+ * ï¿½ fornita di un sistema di Try and Catch per gestire l' exeption qualora il file non fosse raggiungibile, e di un sistema di chache che permette di salvare il file in una memoria temporanea, velocizzando un'eventuale seconda lettura
  * 
  * @author User
  *
  */
 public class CityDAOCSV implements CityDAO
 {	
-	//per caricare la città mi serviranno due DAO
+	//per caricare la cittï¿½ mi serviranno due DAO
 
 	String source;
 	List<City> cache = null;
@@ -56,17 +56,14 @@ public class CityDAOCSV implements CityDAO
 				String[] parts = row.split(",");			//la divide per ogni virgola
 				City city = new City(parts[0],parts[1],Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));			
 				res.add(city);
-				
-				
-				
-				
 			}
+			reader.close();
 		}
 		catch(FileNotFoundException e) 
 		{
 			System.out.println("non trovo il file source");
 		}
-		cache= res;						//imposto la cache, la lisdta che ho prodotto viene messa in CACHE, dove la troverò la prossima volta
+		cache= res;						//imposto la cache, la lisdta che ho prodotto viene messa in CACHE, dove la troverï¿½ la prossima volta
 		return res;
 	}
 
@@ -76,7 +73,7 @@ public class CityDAOCSV implements CityDAO
 		
 		if(city.ID==null || city.name==null || city.w<=0 || city.h<=0)
 			return false;
-		// 1 - la città che mi arriva è nuova o è già presente?
+		// 1 - la cittï¿½ che mi arriva ï¿½ nuova o ï¿½ giï¿½ presente?
 		City oldVersion = getCity(city.ID);
 		// update: cancello la vecchia versione...
 		if(oldVersion!=null)
