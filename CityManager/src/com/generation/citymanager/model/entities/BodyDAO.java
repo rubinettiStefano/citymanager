@@ -6,58 +6,50 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * legge e scrive body da file
+ * @author Lorenzo
+ *
+ */
 public class BodyDAO 
 {
 
-		String source;
-		List<Body> cache = null; 
+	String source;
+	List<Body> cache = null; 
 		
 		
-		public BodyDAO(String source)
+	public BodyDAO(String source)
+	{
+		this.source=source;
+	}
+		
+	public List<Body> getBodies() 
+	{
+		if(cache!=null)
+			return cache; 
+			
+		List<Body> res = new ArrayList<Body>();
+		try 
 		{
-			this.source=source;
-			
-		}
-		
-		public List<Body> getBodies() 
+			File file = new File(source); 
+			Scanner reader = new Scanner(file);
+					
+			while(reader.hasNextLine()) 
+			{
+				String row = reader.nextLine(); 						
+				Body body = new Body(row);
+						
+				res.add(body);
+			}
+			reader.close();
+		} catch (FileNotFoundException e) 
 		{
+			e.printStackTrace();
+		} 
 			
-			if(cache!=null)
-				return cache; 
-			
-			List<Body> res = new ArrayList<Body>();
-			try 
-			{
-				File file = new File(source); 
-				Scanner reader = new Scanner(file);
-				
-				while(reader.hasNextLine()) 
-				{
-					String row = reader.nextLine(); 
-					String [] parts = row.split(",");
-					
-					Body body = new Body
-									(
-										parts[0], parts[1], parts[2],
-										Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), 
-										Integer.parseInt(parts[5]), Integer.parseInt(parts[6]),
-										parts[7]
-									);
-					
-					res.add(body);
-					
-				}
-				reader.close();
-			} 
-			catch (FileNotFoundException e) 
-			{
-				e.printStackTrace();
-				
-			} 
-		
-			cache = res; 
-			return res;
+		cache = res; 
+		return res;
 
-		}
+	}
 		
 }
