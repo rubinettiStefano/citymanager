@@ -1,5 +1,6 @@
 package com.generation.citymanager.model.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.generation.citymanager.model.entities.City;
@@ -13,13 +14,14 @@ public interface CityDAO
 {
 
 	/**
-	 * Elenco di TUTTE le città in archivio
+	 * Elenco di TUTTE le cittï¿½ in archivio
 	 * @return
+	 * @throws SQLException 
 	 */
-	List<City> getCities();
+	List<City> getCities() throws SQLException;
 	
 	/**
-	 * legge dall'archivio la città con l'ID passato.
+	 * legge dall'archivio la cittï¿½ con l'ID passato.
 	 * se non la trova, restituisce null
 	 * @param ID
 	 * @return
@@ -34,14 +36,14 @@ public interface CityDAO
 	boolean saveCity(City city);
 	
 	/**
-	 * Voglio cancellare la città con questo ID
+	 * Voglio cancellare la cittï¿½ con questo ID
 	 * @param ID
 	 * @return
 	 */
 	boolean deleteCity(String ID);
 	
 	/**
-	 * tutte le città con namePart nel nome
+	 * tutte le cittï¿½ con namePart nel nome
 	 * @param namePart
 	 * @return
 	 */

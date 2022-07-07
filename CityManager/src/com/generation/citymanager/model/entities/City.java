@@ -91,6 +91,12 @@ public class City extends Entity
 				.filter(b -> b.type.equalsIgnoreCase("residential") && b.citizens.size()>10)
 				.map(b -> b.getArea() < 10 ?  b.getArea() : 10).reduce(0, Integer::sum);
 	}
+
+	@Override
+	public String toString()
+	{
+		return "City [name=" + name + ", w=" + w + ", h=" + h + ", bodies=" + bodies + "]";
+	}
 	
 	
 	

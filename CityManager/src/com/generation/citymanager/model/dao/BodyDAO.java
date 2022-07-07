@@ -1,5 +1,6 @@
 package com.generation.citymanager.model.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.generation.citymanager.model.entities.Body;
@@ -7,7 +8,7 @@ import com.generation.citymanager.model.entities.Body;
 public interface BodyDAO 
 {
 
-	List<Body> getBodies();
+	List<Body> getBodies() throws SQLException;
 
 	List<Body> getBodies(String namePart);
 	

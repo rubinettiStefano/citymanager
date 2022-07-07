@@ -1,14 +1,12 @@
 package com.generation.citymanager.model.database;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.generation.citymanager.model.dao.BodyDAO;
-import com.generation.citymanager.model.dao.BodyDAOCSV;
 import com.generation.citymanager.model.dao.CitizenDAO;
-import com.generation.citymanager.model.dao.CitizenDAOCSV;
 import com.generation.citymanager.model.dao.CityDAO;
-import com.generation.citymanager.model.dao.CityDAOCSV;
 import com.generation.citymanager.model.entities.Body;
 import com.generation.citymanager.model.entities.Citizen;
 import com.generation.citymanager.model.entities.City;
@@ -24,14 +22,14 @@ public class Database
 	BodyDAO bodyDAO;
 	CitizenDAO citizenDAO;
 	
-	public Database(String cityFile, String bodyFile, String citizenFile, String reviewFile)
+	public Database(CityDAO cityDAO, BodyDAO bodyDAO, CitizenDAO citizenDAO)
 	{
-		cityDAO = new CityDAOCSV(cityFile);
-		bodyDAO = new BodyDAOCSV(bodyFile);
-		citizenDAO = new CitizenDAOCSV(citizenFile);
+		this.cityDAO = cityDAO;
+		this.bodyDAO = bodyDAO;
+		this.citizenDAO = citizenDAO;
 	}
 	
-	public List<City> getCities()
+	public List<City> getCities() throws SQLException
 	{
 		List<City> cities = cityDAO.getCities();
 		List<Body> bodies = bodyDAO.getBodies();
@@ -59,7 +57,7 @@ public class Database
 		return cities;		
 	}
 	
-	public List<Body> getBodies(String cityname, String activity)
+	public List<Body> getBodies(String cityname, String activity) throws SQLException
 	{
 		City selected = null;
 		for(City city:getCities())
@@ -82,7 +80,7 @@ public class Database
 		
 	}
 	
-	public List<Citizen> getCitizen(String namePart)
+	public List<Citizen> getCitizen(String namePart) throws SQLException
 	{
 		List<Citizen> res  = new ArrayList<Citizen>();
 		
@@ -92,6 +90,27 @@ public class Database
 					if((c.name+"-"+c.surname).contains(namePart))
 						res.add(c);
 		return res;
+	}
+	
+	public boolean insertCity(City city)
+	{
+		return 	cityDAO.getCities(city.ID)==null	?
+				cityDAO.saveCity(city) 				:
+				false;
+	}
+
+	public boolean updateCity(City city)
+	{
+		return 	cityDAO.getCity(city.ID)!=null	?
+				cityDAO.saveCity(city) 				:
+				false;
+	}
+
+	public boolean deleteCity(String ID)
+	{
+		return 	cityDAO.getCity(ID)!=null	?
+				cityDAO.deleteCity(ID) 		:
+				false;
 	}
 	
 //	public List<Review> getReviews(String word)
