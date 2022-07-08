@@ -108,8 +108,52 @@ public class Database
 
 	public boolean deleteCity(String ID)
 	{
-		return 	cityDAO.getCity(ID)!=null	?
-				cityDAO.deleteCity(ID) 		:
+		City toDel = cityDAO.getCity(ID);
+		return 	toDel!=null && 	toDel.bodies.isEmpty() ?
+				cityDAO.deleteCity(ID) 				   :
+				false								   ;
+	}
+	
+	public boolean insertBody(Body body)
+	{
+		return 	bodyDAO.getBodies(body.ID)==null	?
+				bodyDAO.saveBody(body) 				:
+				false;
+	}
+
+	public boolean updateBody(Body body)
+	{
+		return 	bodyDAO.getBody(body.ID)!=null	?
+				bodyDAO.saveBody(body) 				:
+				false;
+	}
+
+	public boolean deleteBody(String ID)
+	{
+		Body toDel = bodyDAO.getBody(ID);
+		return 	toDel!=null	&& toDel.citizens.isEmpty() ?
+				bodyDAO.deleteBody(ID) 					:
+				false									;
+	}
+	
+	public boolean insertCity(Citizen citizen)
+	{
+		return 	citizenDAO.getCitizens(citizen.ID)==null	?
+				citizenDAO.saveCitizen(citizen) 				:
+				false;
+	}
+
+	public boolean updateCitizen(Citizen citizen)
+	{
+		return 	citizenDAO.getCitizen(citizen.ID)!=null	?
+				citizenDAO.saveCitizen(citizen) 				:
+				false;
+	}
+
+	public boolean deleteCitizen(String ID)
+	{
+		return 	citizenDAO.getCitizen(ID)!=null	?
+				citizenDAO.deleteCitizen(ID) 		:
 				false;
 	}
 	

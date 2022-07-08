@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.generation.citymanager.model.entities.Body;
-import com.generation.citymanager.model.entities.Citizen;
-import com.generation.citymanager.model.entities.City;
 
 public class BodyDAOSQL implements BodyDAO
 {
@@ -32,8 +30,8 @@ public class BodyDAOSQL implements BodyDAO
 		while(rows.next())					// while(reader.hasNextLine())
 		{
 			// facendo next ho già letto	   String row = reader.nextLine();
-			Body body = _rowToBody(rows);	// City city = _rowToCity(row);
-			res.add(body);					// res.add(city);
+			Body body = _rowToBody(rows);	// body body = _rowTobody(row);
+			res.add(body);					// res.add(body);
 		}
 		
 		return res;
@@ -50,7 +48,7 @@ public class BodyDAOSQL implements BodyDAO
 							rows.getInt("bottom"),
 							rows.getInt("right"),
 							rows.getInt("top"),
-							rows.getString("cityID")
+							rows.getString("bodyID")
 						);
 	}
 
@@ -64,22 +62,97 @@ public class BodyDAOSQL implements BodyDAO
 	@Override
 	public Body getBody(String ID)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		try
+		{
+			Statement readCmd = connection.createStatement();
+			String sql = "select * from Body where id = '"+ID+"'";
+			ResultSet row = readCmd.executeQuery(sql);
+			if(row.next())
+				return _rowToBody(row);
+			else 
+				return null;
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public boolean saveBody(Body body)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		try
+		{
+    		if(getBody(body.ID)==null)
+    		{
+    			// INSERT
+    			Statement writeCmd = connection.createStatement();
+    			// soluzione poco carina... ma va per ora.
+    			// COSTRUZIONE DI UNA QUERY DI INSERIMENTO
+    			String sql = 
+    					"insert into body (id,name,type,left,bottom,right,top,cityID) "
+    					+ "values('[id]','[name]','[type]','[left]','[bottom]','[right]','[top]','[cityID]')";
+    			
+    			sql = sql.replace("[id]", 	body.ID		);
+    			sql = sql.replace("[name]", body.name	);
+    			sql = sql.replace("[type]", 	body.type+""	);
+    			sql = sql.replace("[left]", 	body.left+""	);
+    			sql = sql.replace("[bottom]", 	body.bottom+""	);
+    			sql = sql.replace("[right]", 	body.right+""	);
+    			sql = sql.replace("[top]", 	 body.top+""	);
+    			sql = sql.replace("[cityID]", 	body.cityID+""	);
+    			//
+    			// insert into body (id,name,w,h) values('body05','Ancona',300,300);
+    			writeCmd.execute(sql);
+    		}
+    		else
+    		{
+    			Statement writeCmd = connection.createStatement();
+    			// soluzione poco carina... ma va per ora.
+    			// COSTRUZIONE DI UNA QUERY DI INSERIMENTO
+    			String sql = 
+    					"UPDATE body set name = '[name]', type='[type]',left='[left]',bottom='[bottom]',right='[right]',top='[top]',cityID='[cityID]' where id='[i]'";
+    			
+    			sql = sql.replace("[id]", 	body.ID		);
+    			sql = sql.replace("[name]", body.name	);
+    			sql = sql.replace("[type]", 	body.type+""	);
+    			sql = sql.replace("[left]", 	body.left+""	);
+    			sql = sql.replace("[bottom]", 	body.bottom+""	);
+    			sql = sql.replace("[right]", 	body.right+""	);
+    			sql = sql.replace("[top]", 	 body.top+""	);
+    			sql = sql.replace("[cityID]", 	body.cityID+""	);
+    			writeCmd.execute(sql);
+    		}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
 	public boolean deleteBody(String ID)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		try
+		{
+    		Statement writeCmd = connection.createStatement();
+    		// soluzione poco carina... ma va per ora.
+    		// COSTRUZIONE DI UNA QUERY DI INSERIMENTO
+    		String sql = 
+    				"Delete from Body where id= '"+ID+"'";
+    		
+    		writeCmd.execute(sql);
+    	}
+    	catch(SQLException e)
+    	{
+    		e.printStackTrace();
+    		return false;
+    	}
+		return true;
 	}
 
 }

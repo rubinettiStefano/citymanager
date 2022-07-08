@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.generation.citymanager.model.entities.Body;
 import com.generation.citymanager.model.entities.Citizen;
 
 public class CitizenDAOSQL implements CitizenDAO
@@ -61,22 +60,86 @@ public class CitizenDAOSQL implements CitizenDAO
 	@Override
 	public boolean saveCitizen(Citizen citizen)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		try
+		{
+    		if(getCitizen(citizen.ID)==null)
+    		{
+    			// INSERT
+    			Statement writeCmd = connection.createStatement();
+    			// soluzione poco carina... ma va per ora.
+    			// COSTRUZIONE DI UNA QUERY DI INSERIMENTO
+    			String sql = 
+    					"insert into Citizen (id,name,surname,bodyID) values('[id]','[name]','[surname]','[bodyID]')";
+    			
+    			sql = sql.replace("[id]", 	citizen.ID		);
+    			sql = sql.replace("[name]", citizen.name	);
+    			sql = sql.replace("[surname]", 	citizen.surname+""	);
+    			sql = sql.replace("[bodyID]", 	citizen.bodyID+""	);
+    			writeCmd.execute(sql);
+    		}
+    		else
+    		{
+    			Statement writeCmd = connection.createStatement();
+    			// soluzione poco carina... ma va per ora.
+    			// COSTRUZIONE DI UNA QUERY DI INSERIMENTO
+    			String sql = 
+    					"UPDATE Citizen set name = '[name]', surname='[surname]',bodyID='[bodyID]' where id='[id]'";
+    			
+    			sql = sql.replace("[id]", 	citizen.ID		);
+    			sql = sql.replace("[name]", citizen.name	);
+    			sql = sql.replace("[surname]", 	citizen.surname+""	);
+    			sql = sql.replace("[bodyID]", 	citizen.bodyID+""	);
+    			writeCmd.execute(sql);
+    		}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
 	public boolean deleteCitizen(String ID)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		try
+		{
+    		Statement writeCmd = connection.createStatement();
+    		// soluzione poco carina... ma va per ora.
+    		// COSTRUZIONE DI UNA QUERY DI INSERIMENTO
+    		String sql = 
+    				"Delete from Citizen where id= '"+ID+"'";
+    		
+    		writeCmd.execute(sql);
+    	}
+    	catch(SQLException e)
+    	{
+    		e.printStackTrace();
+    		return false;
+    	}
+		return true;
 	}
 
 	@Override
 	public Citizen getCitizen(String ID)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		try
+		{
+			Statement readCmd = connection.createStatement();
+			String sql = "select * from Citizen where id = '"+ID+"'";
+			ResultSet row = readCmd.executeQuery(sql);
+			if(row.next())
+				return _rowToCitizen(row);
+			else 
+				return null;
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
