@@ -36,10 +36,14 @@ public class UpdateCity
 		City city = new City(ID,name,w,h);
 		
 		
-		if(database.updateCity(city))
-			System.out.println("Saved");
-		else
-			System.out.println("Not saved. PROBLEM");
+		try
+		{
+			database.updateCity(city);
+		}
+		catch(RuntimeException e)
+		{
+			e.getMessage();
+		}
 	}
 
 }

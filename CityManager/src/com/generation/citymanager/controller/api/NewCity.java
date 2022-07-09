@@ -36,12 +36,14 @@ public class NewCity
 		City city = new City(ID,name,w,h);
 		
 		
-		if(database.insertCity(city))
-			System.out.println("Saved");
-		else
-			System.out.println("Not saved. PROBLEM");
-		
-		
+		try
+		{
+			database.insertCity(city);
+		}
+		catch(RuntimeException e)
+		{
+			e.getMessage();
+		}
 	}
 
 }

@@ -26,11 +26,16 @@ public class DeleteCity
 		System.out.println("Insert ID");
 		String ID = keyboard.nextLine();
 		
-		if(database.deleteCity(ID))
-			System.out.println("Deleted");
-		else
-			System.out.println("Not Delete. Problem");
 
+
+		try
+		{
+			database.deleteCity(ID);
+		}
+		catch(RuntimeException e)
+		{
+			e.getMessage();
+		}
 	}
 
 }
