@@ -20,21 +20,28 @@ public class CitizenDAOSQL implements CitizenDAO
 	}
 	
 	@Override
-	public List<Citizen> getCitizens() throws SQLException
+	public List<Citizen> getCitizens() 
 	{
 		List<Citizen> res = new ArrayList<Citizen>();
 		
-		Statement readCmd = connection.createStatement();
-		String sql = "select * from Citizen";
-		ResultSet rows = readCmd.executeQuery(sql);
-		
-		while(rows.next())					// while(reader.hasNextLine())
+		try
 		{
-			// facendo next ho già letto	   String row = reader.nextLine();
-			Citizen citizen = _rowToCitizen(rows);	// City city = _rowToCity(row);
-			res.add(citizen);					// res.add(city);
+    		Statement readCmd = connection.createStatement();
+    		String sql = "select * from Citizen";
+    		ResultSet rows = readCmd.executeQuery(sql);
+    		
+    		while(rows.next())					// while(reader.hasNextLine())
+    		{
+    			// facendo next ho già letto	   String row = reader.nextLine();
+    			Citizen citizen = _rowToCitizen(rows);	// City city = _rowToCity(row);
+    			res.add(citizen);					// res.add(city);
+    		}
 		}
-		
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 		return res;
 	}
 

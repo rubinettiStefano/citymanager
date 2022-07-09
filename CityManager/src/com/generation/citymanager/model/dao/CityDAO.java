@@ -18,7 +18,7 @@ public interface CityDAO
 	 * @return
 	 * @throws SQLException 
 	 */
-	List<City> getCities() throws SQLException;
+	List<City> getCities();
 	
 	/**
 	 * legge dall'archivio la citt� con l'ID passato.

@@ -49,6 +49,17 @@ public class Body extends Entity
 		vertical = new Segment(bottom, top);
 	}
 	
+	public Body(String type, int left, int bottom, int right, int top) // COSTRUTTORE (METODO SPECIALE)
+	{																				// CREA UN OGETTO DI QUESTA CLASSE
+		this.type = type;
+		this.left = left;
+		this.bottom = bottom;
+		this.right = right;
+		this.top = top;
+		horizontal = new Segment(left , right);
+		vertical = new Segment(bottom, top);
+	}
+	
 	public Body(String ID,String type, String name, int left, int bottom, int right, int top) //2 COSTRUTTORE CON AGGIUNTA DEL PARAMETRO NOME
 	{
 		this.ID	  =ID;

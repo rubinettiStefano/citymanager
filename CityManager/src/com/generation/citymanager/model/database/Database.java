@@ -1,6 +1,5 @@
 package com.generation.citymanager.model.database;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class Database
 		this.citizenDAO = citizenDAO;
 	}
 	
-	public List<City> getCities() throws SQLException
+	public List<City> getCities()
 	{
 		List<City> cities = cityDAO.getCities();
 		List<Body> bodies = bodyDAO.getBodies();
@@ -57,7 +56,17 @@ public class Database
 		return cities;		
 	}
 	
-	public List<Body> getBodies(String cityname, String activity) throws SQLException
+	
+	public City getCity(String ID)
+	{
+		for(City c : getCities())
+			if(c.ID.equals(ID))
+				return c;
+		
+		return null;
+	}
+
+	public List<Body> getBodies(String cityname, String activity)
 	{
 		City selected = null;
 		for(City city:getCities())
@@ -80,7 +89,7 @@ public class Database
 		
 	}
 	
-	public List<Citizen> getCitizen(String namePart) throws SQLException
+	public List<Citizen> getCitizens(String namePart)
 	{
 		List<Citizen> res  = new ArrayList<Citizen>();
 		
@@ -92,69 +101,173 @@ public class Database
 		return res;
 	}
 	
-	public boolean insertCity(City city)
+	
+	
+	/**
+	 * 1 - city null, eccezione
+	 * 2 - city non valida, eccezione
+	 * 3- city già presente, eccezione
+	 * 4 - tutto a posto, inseriamo
+	 * @param city
+	 */
+	public void insertCity(City city)
 	{
-		return 	cityDAO.getCities(city.ID)==null	?
-				cityDAO.saveCity(city) 				:
-				false;
+		if(city==null)
+			throw new RuntimeException("city is null, cannot insert");
+		if(city.ID ==null || city.name == null || city.w <=0 || city.h <=0)
+			throw new RuntimeException("city is not valid, cannot insert");
+		if(getCity(city.ID)!=null)
+			throw new RuntimeException("city is not present, cannot insert");
+		
+		cityDAO.saveCity(city) 	;
 	}
 
-	public boolean updateCity(City city)
+	/**
+	 * 1 - city null, eccezione
+	 * 2 - city non valida, eccezione
+	 * 3- city NON presente, eccezione
+	 * 4 - tutto a posto, inseriamo
+	 * @param city
+	 */
+	public void updateCity(City city)
 	{
-		return 	cityDAO.getCity(city.ID)!=null	?
-				cityDAO.saveCity(city) 				:
-				false;
+		
+		if(city==null)
+			throw new RuntimeException("city is null, cannot update");
+		if(city.ID ==null || city.name == null || city.w <=0 || city.h <=0)
+			throw new RuntimeException("city is not valid, cannot update");
+		if(getCity(city.ID)==null)
+			throw new RuntimeException("city is not present, cannot update");
+		
+		
+		cityDAO.saveCity(city);
 	}
 
-	public boolean deleteCity(String ID)
+	/**
+	 * non posso cancellare qualcosa che non esiste
+	 * non posso cancellare una città che ha ancora edifici
+	 * @param ID
+	 */
+	public void deleteCity(String ID)
 	{
-		City toDel = cityDAO.getCity(ID);
-		return 	toDel!=null && 	toDel.bodies.isEmpty() ?
-				cityDAO.deleteCity(ID) 				   :
-				false								   ;
+		if(getCity(ID)==null)
+			throw new RuntimeException("city is not present, cannot delete");
+		if(getCity(ID).bodies.size()>0)
+			throw new RuntimeException("city has at least 1 body, cannot delete");
+		
+				
+		cityDAO.deleteCity(ID);
 	}
 	
-	public boolean insertBody(Body body)
+	/**
+	 * 1 - body null, eccezione
+	 * 2 - body non valida, eccezione
+	 * 3- body già presente, eccezione
+	 * 4 - tutto a posto, inseriamo
+	 * @param city
+	 */
+	public void insertBody(Body body)
 	{
-		return 	bodyDAO.getBodies(body.ID)==null	?
-				bodyDAO.saveBody(body) 				:
-				false;
+		if(body==null)
+			throw new RuntimeException("body is null, cannot insert");
+		if(
+				body.ID ==null || body.name == null || 
+				body.type == null || body.left <=0 	||
+				body.bottom <=0 	|| body.right <=0 	||
+				body.top <=0 	|| body.cityID == null
+		  )
+			throw new RuntimeException("body is not valid, cannot insert");
+		if(getBody(body.ID)!=null)
+			throw new RuntimeException("body is already present, cannot insert");
+		
+		bodyDAO.saveBody(body);
 	}
 
-	public boolean updateBody(Body body)
+	private Body getBody(String ID)
 	{
-		return 	bodyDAO.getBody(body.ID)!=null	?
-				bodyDAO.saveBody(body) 				:
-				false;
+		for(City c : getCities())
+			for(Body b : c.bodies )
+				if(b.ID.equals(ID))
+					return b;
+		return null;
 	}
 
-	public boolean deleteBody(String ID)
+	public void updateBody(Body body)
 	{
-		Body toDel = bodyDAO.getBody(ID);
-		return 	toDel!=null	&& toDel.citizens.isEmpty() ?
-				bodyDAO.deleteBody(ID) 					:
-				false									;
+		if(body==null)
+			throw new RuntimeException("body is null, cannot update");
+		if(
+				body.ID ==null 		|| body.name == null 	|| 
+				body.type == null   || body.left <=0 		||
+				body.bottom <=0 	|| body.right <=0 		||
+				body.top <=0 		|| body.cityID == null
+		  )
+			throw new RuntimeException("body is not valid, cannot update");
+		if(getBody(body.ID)==null)
+			throw new RuntimeException("body is not present, cannot update");
+		
+		bodyDAO.saveBody(body);
+	}
+
+	public void deleteBody(String ID)
+	{
+		if(getBody(ID)==null)
+			throw new RuntimeException("Body is not present, cannot delete");
+		if(getBody(ID).citizens.size()>0)
+			throw new RuntimeException("Body has at least 1 citizen, cannot delete");
+		
+		
+		bodyDAO.deleteBody(ID);
 	}
 	
-	public boolean insertCity(Citizen citizen)
+	public void insertCitizen(Citizen citizen)
 	{
-		return 	citizenDAO.getCitizens(citizen.ID)==null	?
-				citizenDAO.saveCitizen(citizen) 				:
-				false;
+		if(citizen==null)
+			throw new RuntimeException("citizen is null, cannot insert");
+		if(
+				citizen.name == null || 
+				citizen.surname == null ||
+				citizen.bodyID == null
+		  )
+			throw new RuntimeException("citizen is not valid, cannot insert");
+		if(getCitizen(citizen.ID)!=null)
+			throw new RuntimeException("citizen is already present, cannot insert");
+		
+		citizenDAO.saveCitizen(citizen);
 	}
 
-	public boolean updateCitizen(Citizen citizen)
+	public void updateCitizen(Citizen citizen)
 	{
-		return 	citizenDAO.getCitizen(citizen.ID)!=null	?
-				citizenDAO.saveCitizen(citizen) 				:
-				false;
+		if(citizen==null)
+			throw new RuntimeException("citizen is null, cannot update");
+		if(
+				citizen.name == null || 
+				citizen.surname == null ||
+				citizen.bodyID == null
+		  )
+			throw new RuntimeException("citizen is not valid, cannot update");
+		if(getCitizen(citizen.ID)==null)
+			throw new RuntimeException("citizen is not present, cannot update");
+		
+		citizenDAO.saveCitizen(citizen);
 	}
 
-	public boolean deleteCitizen(String ID)
+	public void deleteCitizen(String ID)
 	{
-		return 	citizenDAO.getCitizen(ID)!=null	?
-				citizenDAO.deleteCitizen(ID) 		:
-				false;
+		if(getCitizen(ID)==null)
+			throw new RuntimeException("citizen is not present, cannot delete");
+		
+		citizenDAO.deleteCitizen(ID);
+	}
+	
+	private Citizen getCitizen(String ID)
+	{
+		for(City c : getCities())
+			for(Body b : c.bodies )
+				for(Citizen ci : b.citizens)
+					if(ci.ID.equals(ID))
+					return ci;
+		return null;
 	}
 	
 //	public List<Review> getReviews(String word)

@@ -19,21 +19,27 @@ public class BodyDAOSQL implements BodyDAO
 	}
 	
 	@Override
-	public List<Body> getBodies() throws SQLException
+	public List<Body> getBodies() 
 	{
 		List<Body> res = new ArrayList<Body>();
-		
-		Statement readCmd = connection.createStatement();
-		String sql = "select * from Body";
-		ResultSet rows = readCmd.executeQuery(sql);
-		
-		while(rows.next())					// while(reader.hasNextLine())
+		try
 		{
-			// facendo next ho già letto	   String row = reader.nextLine();
-			Body body = _rowToBody(rows);	// body body = _rowTobody(row);
-			res.add(body);					// res.add(body);
+    		Statement readCmd = connection.createStatement();
+    		String sql = "select * from Body";
+    		ResultSet rows = readCmd.executeQuery(sql);
+    		
+    		while(rows.next())					// while(reader.hasNextLine())
+    		{
+    			// facendo next ho già letto	   String row = reader.nextLine();
+    			Body body = _rowToBody(rows);	// body body = _rowTobody(row);
+    			res.add(body);					// res.add(body);
+    		}
 		}
-		
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 		return res;
 	}
 

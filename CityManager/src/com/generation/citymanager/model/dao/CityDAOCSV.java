@@ -67,6 +67,11 @@ public class CityDAOCSV implements CityDAO
 		return res;
 	}
 
+	/**
+	 * Dopo aver controllato che la città passata come parametro sia valida, se non è presente nel file
+	 * NESSUNA CITTÀ con lo stesso ID la aggiunge, FA CREATE/INSERT, se invece è già presente la AGGIORNA,
+	 * FA UPDATE/EDIT/MODIFY
+	 */
 	@Override
 	public boolean saveCity(City city) 
 	{

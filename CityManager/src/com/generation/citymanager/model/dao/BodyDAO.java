@@ -8,7 +8,7 @@ import com.generation.citymanager.model.entities.Body;
 public interface BodyDAO 
 {
 
-	List<Body> getBodies() throws SQLException;
+	List<Body> getBodies();
 
 	List<Body> getBodies(String namePart);
 	

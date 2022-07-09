@@ -20,28 +20,37 @@ public class CityDAOSQL implements CityDAO
 	}
 	
 	@Override
-	public List<City> getCities() throws SQLException
+	public List<City> getCities() 
 	{
-		List<City> res = new ArrayList<>();
-		// 1	- CARICARE TUTTE LE CITTÀ DAL  DB
-		// 1.1  - PREPARARE LO STATEMENT
-		// P.S. - una Connection è una factory di Statement
-		Statement readCmd = connection.createStatement();
-		// Statement = il contenitore di una query
-		// 1.2 - preparare la stringa query
-		String sql = "select * from City";
-		// la query, espressa in SQL
-		// 1.3 - eseguire la query: lo statement è una factory di ResultSet
-		ResultSet rows = readCmd.executeQuery(sql);
-		// resultSet -> Insieme di righe, il RISULTATO di una query
 		
-		// 2 - Prendere OGNI riga, Convertirla in una CITY, aggiungerla a RES
-		// DB								SCANNER
-		while(rows.next())					// while(reader.hasNextLine())
+    		List<City> res = new ArrayList<>();
+		try
 		{
-			// facendo next ho già letto	   String row = reader.nextLine();
-			City city = _rowToCity(rows);	// City city = _rowToCity(row);
-			res.add(city);					// res.add(city);
+    		// 1	- CARICARE TUTTE LE CITTÀ DAL  DB
+    		// 1.1  - PREPARARE LO STATEMENT
+    		// P.S. - una Connection è una factory di Statement
+    		Statement readCmd = connection.createStatement();
+    		// Statement = il contenitore di una query
+    		// 1.2 - preparare la stringa query
+    		String sql = "select * from City";
+    		// la query, espressa in SQL
+    		// 1.3 - eseguire la query: lo statement è una factory di ResultSet
+    		ResultSet rows = readCmd.executeQuery(sql);
+    		// resultSet -> Insieme di righe, il RISULTATO di una query
+    		
+    		// 2 - Prendere OGNI riga, Convertirla in una CITY, aggiungerla a RES
+    		// DB								SCANNER
+    		while(rows.next())					// while(reader.hasNextLine())
+    		{
+    			// facendo next ho già letto	   String row = reader.nextLine();
+    			City city = _rowToCity(rows);	// City city = _rowToCity(row);
+    			res.add(city);					// res.add(city);
+    		}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
 		}
 
 		return res;
