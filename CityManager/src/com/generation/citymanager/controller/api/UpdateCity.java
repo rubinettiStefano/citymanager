@@ -22,6 +22,7 @@ public class UpdateCity
 		catch(SQLException | ClassNotFoundException e)
 		{
 			e.printStackTrace();
+			keyboard.close();
 			return;
 		}
 		System.out.println("Insert ID");
@@ -42,8 +43,9 @@ public class UpdateCity
 		}
 		catch(RuntimeException e)
 		{
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
+		keyboard.close();
 	}
 
 }

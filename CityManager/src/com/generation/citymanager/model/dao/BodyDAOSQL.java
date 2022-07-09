@@ -54,7 +54,7 @@ public class BodyDAOSQL implements BodyDAO
 							rows.getInt("bottom"),
 							rows.getInt("right"),
 							rows.getInt("top"),
-							rows.getString("bodyID")
+							rows.getString("cityID")
 						);
 	}
 

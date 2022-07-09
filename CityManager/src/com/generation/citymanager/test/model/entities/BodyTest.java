@@ -1,6 +1,5 @@
 package com.generation.citymanager.test.model.entities;
 
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 

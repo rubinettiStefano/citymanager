@@ -23,7 +23,7 @@ public class CityDAOSQL implements CityDAO
 	public List<City> getCities() 
 	{
 		
-    		List<City> res = new ArrayList<>();
+		List<City> res = new ArrayList<>();
 		try
 		{
     		// 1	- CARICARE TUTTE LE CITTÀ DAL  DB

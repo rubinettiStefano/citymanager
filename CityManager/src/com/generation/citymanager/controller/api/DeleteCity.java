@@ -21,6 +21,7 @@ public class DeleteCity
 		catch(SQLException | ClassNotFoundException e)
 		{
 			e.printStackTrace();
+			keyboard.close();
 			return;
 		}
 		System.out.println("Insert ID");
@@ -34,8 +35,9 @@ public class DeleteCity
 		}
 		catch(RuntimeException e)
 		{
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
+		keyboard.close();
 	}
 
 }

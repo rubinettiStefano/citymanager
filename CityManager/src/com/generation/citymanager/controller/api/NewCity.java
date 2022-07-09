@@ -22,6 +22,7 @@ public class NewCity
 		catch(SQLException | ClassNotFoundException e)
 		{
 			e.printStackTrace();
+			keyboard.close();
 			return;
 		}
 		System.out.println("Insert ID");
@@ -39,11 +40,14 @@ public class NewCity
 		try
 		{
 			database.insertCity(city);
+			System.out.println("Tutt'appost");
 		}
 		catch(RuntimeException e)
 		{
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
+		keyboard.close();
+		
 	}
 
 }

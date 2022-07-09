@@ -14,6 +14,7 @@ class DatabaseTest
 	@Test
 	void testCRUD()
 	{
+		@SuppressWarnings("unused")
 		Database db = null;
 		
 		try
